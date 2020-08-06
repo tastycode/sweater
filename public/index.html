@@ -46,7 +46,13 @@
     button.addEventListener('click', async () => {
       const q = inputLyrics.value
       encodedQ = encodeURIComponent(JSON.stringify({text: q}))
-      const rhymeResult = await fetch('/rhyme?q=' + encodedQ)
+      const rhymeResult = await fetch('/rhyme', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({text: q})
+      })
       const parsed = await rhymeResult.json()
       result.value = parsed.rhymed
       result.setAttribute('rows', parsed.rhymed.split("\n").length)

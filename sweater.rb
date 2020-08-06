@@ -39,11 +39,10 @@ def rhyme_line(line)
 end
 
 
-get '/rhyme' do 
+post '/rhyme' do 
   @words = File.read('frequencies').lines
   @tagger = EngTagger.new
-
-  q = JSON.parse(CGI.unescape(params['q']))['text']
+  q = JSON.parse(request.body.read)['text']
   rhymed = q.lines.map do |line|
     rhyme_line(line)
   end.to_a.join("\n")
