@@ -30,6 +30,8 @@ def rhyme_line(line)
       end
       rhymed = rhymes.sort_by do |rhyme|
         @words.find_index(rhyme) || 0
+      end.select do |rhyme|
+        !/[\d]/.match(rhyme)
       end.first(10).sample
 
 
