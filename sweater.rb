@@ -38,9 +38,6 @@ def rhyme_line(line)
   end.join(' ')
 end
 
-$speller = Aspell.new("en_US")
-$speller.suggestion_mode = Aspell::NORMAL
-
 
 get '/rhyme' do 
   @words = File.read('frequencies').lines
