@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+gem 'ruby_rhymes'
+gem 'raspell'
+gem 'rails'
+gem 'opal'
+gem 'engtagger'
+gem 'nokogiri'
+gem 'sinatra'
+gem 'sinatra-contrib'
+
