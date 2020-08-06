@@ -24,12 +24,15 @@
         <div class="column">
           <textarea id="inputLyrics" class="textarea is-primary" placeholder="Some lyrics should be entered here"></textarea>
           <button class="button is-primary large is-fullwidth" id="invokeButton">Get Lyrics</button>
+          <progress id="loader" class="progress is-small is-primary" max="100">15%</progress>
           <textarea id="result" class="textarea is-secondary" placeholder="Crumb steerings wood see bettered beer"></textarea>
           <br/>
           <article class="message">
   <div class="message-header">
     Who did this?
   </div>
+
+
   <div class="message-body">
     <a href="twitter.com/tastycode">@tastycode</a>. If you enjoy this, please send BTC to <a href="bitcoin:bc1qnm44qzsnwyrl3uynywv4n58jy2tmtkd5wpjwp0">bc1qnm44qzsnwyrl3uynywv4n58jy2tmtkd5wpjwp0</a>.
   </div>
@@ -43,9 +46,12 @@
     const button = document.querySelector('#invokeButton')
     const inputLyrics = document.querySelector('#inputLyrics')
     const result = document.querySelector('#result')
+    const loader = document.querySelector('#loader')
+    loader.style.display = 'none'
     button.addEventListener('click', async () => {
       const q = inputLyrics.value
       encodedQ = encodeURIComponent(JSON.stringify({text: q}))
+      loader.style.display='block'
       const rhymeResult = await fetch('/rhyme', {
         method: 'POST',
         headers: {
@@ -56,6 +62,7 @@
       const parsed = await rhymeResult.json()
       result.value = parsed.rhymed
       result.setAttribute('rows', parsed.rhymed.split("\n").length)
+      loader.style.display = 'none'
     })
   </script>
 </html>
