@@ -1,5 +1,4 @@
 require 'ruby_rhymes'
-require 'raspell'
 require 'engtagger'
 require 'nokogiri'
 require 'sinatra'
@@ -28,9 +27,6 @@ def rhyme_line(line)
       syllables_to_match = word.to_phrase.syllables
       rhymes = word.to_phrase.flat_rhymes.select do |rhymed_word|
         rhymed_word.to_phrase.syllables == syllables_to_match
-      end.select do |rhymed_word|
-        suggestions = $speller.suggest(rhymed_word)
-        is_spelled = rhymed_word.downcase == suggestions.first.downcase
       end
       rhymed = rhymes.sort_by do |rhyme|
         @words.find_index(rhyme) || 0
